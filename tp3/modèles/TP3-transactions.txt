@@ -1,0 +1,20 @@
+﻿Transaction nécessaire pour l'enregistrement d'une commande :
+
+begin_transaction
+
+1- lectude liste des produits commandés dans la table produits "for update"  
+rollback si pb lecture (code retour d'erreur) et return
+
+2- ajout d'une ligne dans la table commandes avec la date et fk_client_id
+rollback si pb ajout (code retour d'erreur ou O ligne ajoutée) et return
+récupération commande_id (insert_id)
+
+3- Pour chaque produit commandé :
+
+3-1 ajouter une ligne dans la table produits_commandes avec fk_produit_id, fk_commande_id et produit_qte
+rollback si pb ajout (code retour d'erreur ou 0 ligne ajoutée) et return
+
+3-2 mettre à jour la quantité en stock de ce produit si le stock résiduel est >= 0, dans la table produits
+rollback si pb modification (code retour d'erreur ou O ligne modifiée) et return
+
+commit;

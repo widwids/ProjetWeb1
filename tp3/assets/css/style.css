@@ -1,0 +1,181 @@
+/* CSS reset
+   --------- */
+
+html,
+body,
+h1, h2, h3,
+p,
+ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* 1- règles générales
+   ------------------- */
+
+body {
+    background: #181a1b ;
+    width: 90%;
+    color: white;
+    margin: 0 auto;
+}
+
+a {
+    color: #0066a4;
+}
+
+a:visited {
+    color: #9c09a1;
+}
+
+.erreur {
+    color: red;
+
+}
+
+.succes {
+    color: green;
+}
+
+/* 2- barre de navigation
+   ---------------------- */
+
+nav ul {
+    display: flex;
+    margin-top: 20px;
+    list-style: none;
+}
+
+nav ul li {
+    margin-right: 5px;
+}
+
+nav ul li a {
+    display: block;
+    padding: 10px 30px;
+    text-decoration: none;
+    color: #000;
+    background-color: bisque;
+}
+
+nav ul li a.active, nav ul li a:hover  {
+    background-color: burlywood;
+}
+
+/* 3- main
+   ------- */
+
+.menu a {
+    margin-right: 10px;
+}
+
+h1 {
+    margin: 10px 0;
+}
+
+p {
+    margin-bottom: 20px;
+}
+
+/* 3-1 tableau affichage de liste
+   ------------------------------ */
+
+table {
+    border-spacing: 0;
+}
+
+th, td {
+    padding: 5px 20px;
+    text-align: left;
+    border-bottom: 1px solid #d5d2cc;
+}
+
+td a {
+    margin-right: 10px;
+}
+
+.nombre {
+    text-align: right;
+    padding-right: 30px;
+}
+
+/* 3-2 formulaires
+   --------------- */
+
+#authentification input {
+    margin-bottom: 20px;
+}
+
+#recherche label,
+#tri label {
+    display: inline-block;
+    width : 90px;
+    margin-right: 5px;
+}
+
+#recherche input,
+#tri input, #tri select {
+    display : inline-block;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    width: 250px;
+    line-height: 24px;
+}
+
+#tri select {
+    height: 28px;
+}
+
+#tri input[type='radio'] {
+    margin-right: 0;
+    width: auto;
+    vertical-align: text-top;
+}
+
+#tri input + label {
+    width: auto;
+    padding-right: 10px;
+}
+
+#recherche input[type='submit'],
+#tri input[type='submit'] {
+    width: 100px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input, select {
+    box-sizing: border-box;
+    /* display: block; */
+    line-height: 24px;
+    margin-bottom: 5px;
+    margin-right: 20px;
+}
+
+span {
+    display: block;
+    margin-bottom: 10px;
+    color: firebrick;
+}
+
+.form-suppression input[type='submit'] {
+    display: inline-block;
+    margin: 30px 30px 0 0;
+    width: 100px;
+}
+
+.tableau-commande {
+    margin-top: 50px;
+}
+
+button[form="commande"] {
+    margin-top: 20px;
+}
+
+.total {
+    margin-top: 20px;
+    font-weight: bolder;
+}
