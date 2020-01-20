@@ -26,11 +26,11 @@ $liste = listerProduits($conn, $recherche);
         <a href="ajout.php">Ajouter</a>
         <a href="listeCommandes.php">Commandes</a>
     </p>
-    <form id="recherche" action="" method="post">
+<!--     <form id="recherche" action="" method="post">
         <label>Produit</label>
         <input type="text" name="recherche" value="<?= $recherche ?>" placeholder="nom du produit contient ces caractères">
         <input type="submit" value="Recherchez">
-    </form>
+    </form> -->
 
     <table>
         <tr>
