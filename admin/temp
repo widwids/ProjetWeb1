@@ -12,7 +12,7 @@ VALUES (
 );
 
 INSERT INTO produits(
-    categorie_id,
+    fk_categorie_id,
     produits_description,
     produits_id,
     produits_nom,

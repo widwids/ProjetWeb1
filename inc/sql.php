@@ -77,23 +77,33 @@ function listerCategories($conn)
  */
 function ajouterProduit($conn, $produit)
 {
-    $req = "INSERT INTO categories (
-        categories_id,
-        categories_nom)
-    VALUES (?,?);
-
-INSERT INTO produits (
-        categorie_id,
-        produits_description,
-        produits_id,
-        produits_nom,
-        produits_prix,
-        produits_quantite)
-    VALUES (?,?,?,?,?,?);
-    ";
-
+    $req = "INSERT INTO produits (produits_nom, produits_description, produits_prix, produits_quantite, fk_categorie_id)
+    VALUES (?,?,?,?,?)";
     $stmt = mysqli_prepare($conn, $req);
-    mysqli_stmt_bind_param($stmt, "sssisii", $produit["nom"], $produit["description"], $produit["prix"], $produit["quantite"], $produit["categorie"], $produit["marque"]);
+    mysqli_stmt_bind_param($stmt, "ssdis", $produit["nom"], $produit["description"], $produit["prix"], $produit["quantite"], $produit["categorie"]);
+    if (mysqli_stmt_execute($stmt)) {
+        return mysqli_stmt_affected_rows($stmt);
+    } else {
+        errSQL($conn);
+        exit;
+    }
+}
+/** 
+ * Fonction ajouterCategorie
+ * Auteur : Vincent
+ * Date   : 22-01-2020
+ * But    : ajouter une ligne dans la table categories  
+ * Arguments en entrée : $conn = contexte de connexion
+ *                       $marque = marque à ajouter à la table
+ * Valeurs de retour   : 1    si ajout effectuée
+ *                       0    si aucun ajout
+ */
+function ajouterCategorie($conn, $categorie)
+{
+    $req = "INSERT INTO categories (categories_nom)
+    VALUES (?)";
+    $stmt = mysqli_prepare($conn, $req);
+    mysqli_stmt_bind_param($stmt, "s", $categorie["nom"]);
     if (mysqli_stmt_execute($stmt)) {
         return mysqli_stmt_affected_rows($stmt);
     } else {
@@ -104,4 +114,37 @@ INSERT INTO produits (
 
 
 
+
+
+
+
+
+/**
+ * Fonction listerCategories,
+ * Auteur   : samuel,
+ * Date     : 01-17-2019,
+ * But      : Récupérer les marques des categories,
+ * Input    : $conn = contexte de connexion,
+ *           
+ * Output   : $marque = tableau des lignes de la commande SELECT.
+ */
+function listerCategories($conn)
+{
+    $req = "SELECT * FROM categories";
+    if ($result = mysqli_query($conn, $req)) {
+        $nbResult = mysqli_num_rows($result);
+        $liste = array();
+        if ($nbResult) {
+            mysqli_data_seek($result, 0);
+            while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                $liste[] = $row;
+            }
+        }
+        mysqli_free_result($result);
+        return $liste;
+    } else {
+        errSQL($conn);
+        exit;
+    }
+}
 ?>

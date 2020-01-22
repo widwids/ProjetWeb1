@@ -2,10 +2,9 @@
 require_once("../inc/connectDB.php");
 require_once("../inc/sql.php");
 
-// Catalogue client
-$recherche = isset($_POST['recherche']) ? trim($_POST['recherche']) : "";
 
-$liste = listerProduits($conn, $recherche);
+$liste = listerCategories($conn);
+
 
 ?>
 
@@ -14,7 +13,7 @@ $liste = listerProduits($conn, $recherche);
 
 <head>
     <meta charset="UTF-8">
-    <title>Catalogue produits</title>
+    <title>Catalogue des categories</title>
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
@@ -23,37 +22,25 @@ $liste = listerProduits($conn, $recherche);
 <!--     <h2>Utilisateur : <?= $_SESSION["identifiant_utilisateur"] ?></h2>
  -->    <p class="menu">
         <a href="../deconnexion.php">Déconnexion</a>
-        <a href="ajout.php">Ajouter un produit</a>
+        <a href="index.php">Catalogue Admin</a>
+        <a href="ajoutCategorie.php">Ajouter une categorie</a>
         <a href="listeCommandes.php">Commandes</a>
-        <a href="categorie.php">Categories</a>
-
     </p>
-<!--     <form id="recherche" action="" method="post">
-        <label>Produit</label>
-        <input type="text" name="recherche" value="<?= $recherche ?>" placeholder="nom du produit contient ces caractères">
-        <input type="submit" value="Recherchez">
-    </form> -->
 
     <table>
         <tr>
             <th>Numero de serie</th>
             <th>Nom</th>
-            <th>Description</th>
-            <th>Prix</th>
-            <th>Quantité</th>
-            <th>Catégorie</th>
 
             <th>Action</th>
         </tr>
+
         <?php foreach ($liste as $row) :
             ?>
             <tr>
-                <td><?= $row["produits_id"] ?></td>
-                <td><?= $row["produits_nom"] ?></td>
-                <td><?= $row["produits_description"] ?></td>
-                <td><?= $row["produits_prix"] . " $" ?></td>
-                <td><?= $row["produits_quantite"] . "" ?></td>
-                <td><?= $row["fk_categorie_id"] ?></td>
+                <td><?= $row["categories_id"] ?></td>
+                <td><?= $row["categories_nom"] ?></td>
+
                 <!-- <td> 
                     <a href="modificationProduit.php?id=<?= $row['produit_id'] ?>">Modifier</a>
                     <a href="suppressionProduit.php?id=<?= $row['produit_id'] ?>">Supprimer</a>
@@ -63,7 +50,7 @@ $liste = listerProduits($conn, $recherche);
         <?php
         endforeach; ?>
     </table>
-
+    
     <?php if (isset($_POST["envoi"])) : ?>
         <section>
             <p>Confirmez la commande de <?= $_POST['nbCommande'] ?> exemplaire(s) de <?= $_POST['nomProduit'] ?></p>
@@ -77,4 +64,4 @@ $liste = listerProduits($conn, $recherche);
 
 </body>
 
-</html>
+</html>    
