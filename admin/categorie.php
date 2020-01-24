@@ -26,6 +26,8 @@ $liste = listerCategories($conn);
         <a href="ajoutCategorie.php">Ajouter une categorie</a>
         <a href="listeCommandes.php">Commandes</a>
         <a href="clients.php">Catalogue de clients</a>
+        <a href="utilisateurs.php">Catalogue des utilisateurs</a>
+
 
     </p>
 

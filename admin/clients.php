@@ -26,6 +26,8 @@ $liste = listerClients($conn);
         <a href="ajoutCategorie.php">Ajouter une categorie</a>
         <a href="listeCommandes.php">Commandes</a>
         <a href="ajoutClients.php">Ajouter un client</a>
+        <a href="utilisateurs.php">Catalogue des utilisateurs</a>
+
 
     </p>
 
