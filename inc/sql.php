@@ -114,23 +114,18 @@ function ajouterCategorie($conn, $categorie)
 
 
 
-
-
-
-
-
 /**
- * Fonction listerCategories,
- * Auteur   : samuel,
- * Date     : 01-17-2019,
- * But      : Récupérer les marques des categories,
+ * Fonction listerClients,
+ * Auteur   : Vincent
+ * Date     : 24-01-2020
+ * But      : Récupérer les clients,
  * Input    : $conn = contexte de connexion,
  *           
- * Output   : $marque = tableau des lignes de la commande SELECT.
+ * Output   : 
  */
-function listerCategories($conn)
+function listerClients($conn)
 {
-    $req = "SELECT * FROM categories";
+    $req = "SELECT * FROM clients";
     if ($result = mysqli_query($conn, $req)) {
         $nbResult = mysqli_num_rows($result);
         $liste = array();
@@ -147,4 +142,30 @@ function listerCategories($conn)
         exit;
     }
 }
+
+/** 
+ * Fonction ajouterClient
+ * Auteur : Vincent
+ * Date   : 24-01-2020
+ * But    : ajouter une ligne dans la table client 
+ * Arguments en entrée : $conn = contexte de connexion
+ *                       $marque = marque à ajouter à la table
+ * Valeurs de retour   : 1    si ajout effectuée
+ *                       0    si aucun ajout
+ */
+function ajouterClient($conn, $clients)
+{
+    $req = "INSERT INTO clients (clients_adresse, clients_telephone, clients_nom)
+    VALUES (?,?,?)";
+    $stmt = mysqli_prepare($conn, $req);
+    mysqli_stmt_bind_param($stmt, "sss", $clients["adresse"], $clients["telephone"], $clients["nom"]);
+    if (mysqli_stmt_execute($stmt)) {
+        return mysqli_stmt_affected_rows($stmt);
+    } else {
+        errSQL($conn);
+        exit;
+    }
+}
+
+
 ?>

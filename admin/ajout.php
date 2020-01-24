@@ -27,6 +27,8 @@ require_once("../inc/sql.php");
             <a href="index.php">Catalogue Admin</a>
             <a href="listeCommandes.php">Commandes</a>
             <a href="categorie.php">Categories</a>
+            <a href="clients.php">Catalogue de clients</a>
+
 
         </p>
     </header>
