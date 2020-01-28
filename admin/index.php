@@ -18,55 +18,68 @@ $liste = listerProduits($conn, $recherche);
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
+<header>
+    <h1>Luna Inc.</h1> 
+    <h3>Catalogue des produits</h3>
+</header>
+
+
 <body>
-    <h1>Catalogue des produits</h1>
-<!--     <h2>Utilisateur : <?= $_SESSION["identifiant_utilisateur"] ?></h2>
- -->    <p class="menu">
-        <a href="../deconnexion.php">Déconnexion</a>
-        <a href="ajout.php">Ajouter un produit</a>
-        <a href="listeCommandes.php">Commandes</a>
-        <a href="categorie.php">Categories</a>
-        <a href="clients.php">Catalogue de clients</a>
-        <a href="utilisateurs.php">Catalogue des utilisateurs</a>
-
-
-
-    </p>
-<!--     <form id="recherche" action="" method="post">
-        <label>Produit</label>
-        <input type="text" name="recherche" value="<?= $recherche ?>" placeholder="nom du produit contient ces caractères">
-        <input type="submit" value="Recherchez">
-    </form> -->
-
-    <table>
-        <tr>
-            <th>Numero de serie</th>
-            <th>Nom</th>
-            <th>Description</th>
-            <th>Prix</th>
-            <th>Quantité</th>
-            <th>Catégorie</th>
-
-            <th>Action</th>
-        </tr>
-        <?php foreach ($liste as $row) :
-            ?>
+    <section>
+        <table>
             <tr>
-                <td><?= $row["produits_id"] ?></td>
-                <td><?= $row["produits_nom"] ?></td>
-                <td><?= $row["produits_description"] ?></td>
-                <td><?= $row["produits_prix"] . " $" ?></td>
-                <td><?= $row["produits_quantite"] . "" ?></td>
-                <td><?= $row["fk_categorie_id"] ?></td>
-                <!-- <td> 
-                    <a href="modificationProduit.php?id=<?= $row['produit_id'] ?>">Modifier</a>
-                    <a href="suppressionProduit.php?id=<?= $row['produit_id'] ?>">Supprimer</a>
-                </td> -->
-                   
+                <th>Numero de serie</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Prix</th>
+                <th>Quantité</th>
+                <th>Catégorie</th>
+
+                <th>Action</th>
             </tr>
-        <?php
-        endforeach; ?>
-    </table>
+            <?php foreach ($liste as $row) :
+                ?>
+                <tr>
+                    <td><?= $row["produits_id"] ?></td>
+                    <td><?= $row["produits_nom"] ?></td>
+                    <td><?= $row["produits_description"] ?></td>
+                    <td><?= $row["produits_prix"] . " $" ?></td>
+                    <td><?= $row["produits_quantite"] . "" ?></td>
+                    <td><?= $row["fk_categorie_id"] ?></td>
+                    <!-- <td> 
+                        <a href="modificationProduit.php?id=<?= $row['produit_id'] ?>">Modifier</a>
+                        <a href="suppressionProduit.php?id=<?= $row['produit_id'] ?>">Supprimer</a>
+                    </td> -->
+                    
+                </tr>
+            <?php
+            endforeach; ?>
+        </table>
+
+
+
+
+        <nav>
+    <!--     <h2>Utilisateur : <?= $_SESSION["identifiant_utilisateur"] ?></h2>
+    -->    <p class="menu">
+            <a href="../deconnexion.php">Déconnexion</a><br>
+            <a href="ajout.php">Ajouter un produit</a><br>
+            <a href="listeCommandes.php">Commandes</a><br>
+            <a href="categorie.php">Categories</a><br>
+            <a href="clients.php">Catalogue de clients</a><br>
+            <a href="utilisateurs.php">Catalogue des utilisateurs</a>
+        </p>
+    <!--     <form id="recherche" action="" method="post">
+            <label>Produit</label>
+            <input type="text" name="recherche" value="<?= $recherche ?>" placeholder="nom du produit contient ces caractères">
+            <input type="submit" value="Recherchez">
+        </form> -->
+        </nav>
+
+    </section>
+    
+
+    
 
     <?php if (isset($_POST["envoi"])) : ?>
         <section>
@@ -77,6 +90,8 @@ $liste = listerProduits($conn, $recherche);
                 <input type="submit" name="confirme" value="NON">
             </form>
         </section>
+
+        
     <?php endif; ?>
 
 </body>
