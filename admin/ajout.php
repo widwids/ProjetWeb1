@@ -3,8 +3,7 @@ require_once("../inc/connectDB.php");
 require_once("../inc/sql.php");
 
 
-/* $marque = listerMarques($conn);
- */$categorie = listerCategories($conn);
+$categorie = listerCategories($conn);
 
 ?>
 
