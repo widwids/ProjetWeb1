@@ -24,9 +24,12 @@ $liste = listerProduits($conn, $recherche);
 </header>
 
 
+
+
+
 <body>
-    <section>
-        <table>
+    <main class="boiteGrise">              
+        <table class="affichage">
             <tr>
                 <th>Numero de serie</th>
                 <th>Nom</th>
@@ -55,29 +58,13 @@ $liste = listerProduits($conn, $recherche);
             <?php
             endforeach; ?>
         </table>
+      
 
+<!--     NAVIGATION     -->    
+        <?php include "../navigation.php"; ?>
+    </main>
+    <p><?php echo isset($retSQL) ? $retSQL : "&nbsp;" ?></p>
 
-
-
-        <nav>
-    <!--     <h2>Utilisateur : <?= $_SESSION["identifiant_utilisateur"] ?></h2>
-    -->    <p class="menu">
-            <a href="../deconnexion.php">Déconnexion</a><br>
-            <a href="ajout.php">Ajouter un produit</a><br>
-            <a href="commandes.php">Commandes</a><br>
-            <a href="categorie.php">Categories</a><br>
-            <a href="clients.php">Catalogue de clients</a><br>
-            <a href="utilisateurs.php">Catalogue des utilisateurs</a>
-        </p>
-    <!--     <form id="recherche" action="" method="post">
-            <label>Produit</label>
-            <input type="text" name="recherche" value="<?= $recherche ?>" placeholder="nom du produit contient ces caractères">
-            <input type="submit" value="Recherchez">
-        </form> -->
-        </nav>
-
-    </section>
-    
 
     
 

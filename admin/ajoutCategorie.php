@@ -15,44 +15,37 @@ require_once("../inc/sql.php");
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
+
+
+
+<header>
+        <h1>Luna Inc.</h1> 
+        <h3>Ajouter une categorie</h3>
+</header>
+
+
+
 <body>
-    <header>
-        <h1>Ajout d'une categorie</h1>
-    <!--     <h2>Utilisateur : <?= $_SESSION["identifiant_utilisateur"] ?></h2>
-    -->    <p class="menu">
-            <a href="../deconnexion.php">Déconnexion</a>
-            <a href="index.php">Catalogue Admin</a>
-            <a href="listeCommandes.php">Commandes</a>
-            <a href="categorie.php">Categories</a>
-            <a href="clients.php">Catalogue de clients</a>
-            <a href="utilisateurs.php">Catalogue des utilisateurs</a>
+    <main class="boiteGrise">
+        <section class="affichage">
+            <p><?php echo isset($retSQL) ? $retSQL : "&nbsp;" ?></p>
 
+            <form action="" method="post">
 
+                <label>Nom de la categorie</label>
+                <input type="text" name="nom" value="<?php echo isset($nom) ? $nom : "" ?>" required>
+                <span><?php echo isset($erreurs['nom']) ? $erreurs['nom'] : "&nbsp;"  ?></span>
+              
+            <input type="submit" name="envoi" value="Envoyer">
 
-        </p>
-    </header>
+            <?php if (isset($_POST["envoi"]))
+                ajouterCategorie($conn, $_POST);
+            ?>
+            </form>
+        </section>     
 
-    <main>
-        <h1>Ajout d'une categorie</h1>
-
-        <p><?php echo isset($retSQL) ? $retSQL : "&nbsp;" ?></p>
-
-        <form action="" method="post">
-
-            <label>Nom de la categorie</label>
-            <input type="text" name="nom" value="<?php echo isset($nom) ? $nom : "" ?>" required>
-            <span><?php echo isset($erreurs['nom']) ? $erreurs['nom'] : "&nbsp;"  ?></span>
-
-           
-            
-        <input type="submit" name="envoi" value="Envoyer">
-
-        <?php if (isset($_POST["envoi"]))
-            ajouterCategorie($conn, $_POST);
-        ?>
-
-        </form>
-
+<!--     NAVIGATION     -->    
+        <?php include "../navigation.php"; ?>
     </main>
 </body>
 

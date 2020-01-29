@@ -8,7 +8,7 @@ html {
 
 
 
-section {
+.boiteGrise {
     /* position: absolute;
     width: 1080px;
     height: 790px;
@@ -46,12 +46,15 @@ header {
     color: #FFFFFF;
 }
 
-table {
+.affichage {
     /* position: absolute;
     width: 800px;
     height: 663px;
     left: 448px;
-    top: 193px; */
+    top: 193px; 
+
+    
+ */
 
     background: #FFFFFF;
     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -59,9 +62,8 @@ table {
     margin: 10px;
 
     display: grid;
-    grid-template-columns: minmax(150px, 1.33fr) minmax(150px, 2.33fr);
-
-}
+/*     grid-template-columns: minmax(150px, 1fr);
+ */}
 
 nav {
     

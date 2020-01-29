@@ -16,80 +16,50 @@ $liste = listerProduits($conn);
 
 <head>
     <meta charset="UTF-8">
-    <title>Ajout d'une commande</title>
+    <title>Ajouter une commande</title>
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 
-<body>
-    <header>
-        <h1>Ajout d'une commande</h1>
-    <!--     <h2>Utilisateur : <?= $_SESSION["identifiant_utilisateur"] ?></h2>
-    -->    <p class="menu">
-            <a href="../deconnexion.php">Déconnexion</a>
-            <a href="index.php">Catalogue Admin</a>
-            <a href="listeCommandes.php">Commandes</a>
-            <a href="categorie.php">Categories</a>
-            <a href="clients.php">Catalogue de clients</a>
-            <a href="utilisateurs.php">Catalogue des utilisateurs</a>
-
-
-
-        </p>
+<header>
+        <h1>Luna Inc.</h1> 
+        <h3>Ajouter une commande</h3>
     </header>
 
-    <table>
-            <tr>
-                <th>Numero de serie</th>
-                <th>Nom</th>
-                <th>Description</th>
-                <th>Prix</th>
-                <th>Quantité</th>
-                <th>Catégorie</th>
-
-                <th>Action</th>
-            </tr>
-            <?php foreach ($liste as $row) :
-                ?>
-                <tr>
-                    <td><?= $row["produits_id"] ?></td>
-                    <td><?= $row["produits_nom"] ?></td>
-                    <td><?= $row["produits_description"] ?></td>
-                    <td><?= $row["produits_prix"] . " $" ?></td>
-                    <td><?= $row["produits_quantite"] . "" ?></td>
-                    <td><?= $row["fk_categorie_id"] ?></td>
-                    <!-- <td> 
-                        <a href="modificationProduit.php?id=<?= $row['produit_id'] ?>">Modifier</a>
-                        <a href="suppressionProduit.php?id=<?= $row['produit_id'] ?>">Supprimer</a>
-                    </td> -->
-                    
-                </tr>
-            <?php
-            endforeach; ?>
-        </table>
 
 
-    <main>
-        <h1>Ajout d'une commande</h1>
 
-        <p><?php echo isset($retSQL) ? $retSQL : "&nbsp;" ?></p>
 
-        <form action="" method="post">
+
+
+<body>
+    
+
+    
+
+
+    <main class="boiteGrise">
+        <section class="affichage">
+
+            <form action="" method="post">
 
             <label>Date</label>
             <input type="text" name="date" value="<?php echo isset($date) ? $date : "" ?>" required>
-            <span><?php echo isset($erreurs['date']) ? $erreurs['date'] : "&nbsp;"  ?></span>
+            <span><?php echo isset($erreurs['date']) ? $erreurs['date'] : "&nbsp;"  ?></span><br>
 
             <label>Adresse </label>
             <input type="text" name="adresse" value="<?php echo isset($adresse) ? $adresse : "" ?>" required>
-            <span><?php echo isset($erreurs['adresse']) ? $erreurs['adresse'] : "&nbsp;"  ?></span>
+            <span><?php echo isset($erreurs['adresse']) ? $erreurs['adresse'] : "&nbsp;"  ?></span><br>
            
             <label>Etat</label>
             <input type="text" name="etat" value="<?php echo isset($etat) ? $etat : "" ?>" required>
-            <span><?php echo isset($erreurs['etat']) ? $erreurs['etat'] : "&nbsp;"  ?></span>
+            <span><?php echo isset($erreurs['etat']) ? $erreurs['etat'] : "&nbsp;"  ?></span><br>
 
             <label>Commentaires</label>
             <input type="text" name="commentaire" value="<?php echo isset($commentaire) ? $commentaire : "" ?>">
-            <span><?php echo isset($erreurs['commentaire']) ? $erreurs['commentaire'] : "&nbsp;"  ?></span>
+            <span><?php echo isset($erreurs['commentaire']) ? $erreurs['commentaire'] : "&nbsp;"  ?></span><br>
+
+
+
 
             <table>
                 <?php if (count($client) > 0) : ?>
@@ -124,6 +94,9 @@ $liste = listerProduits($conn);
                 <?php endif; ?>
 
             
+
+
+
             <table>    
                 <label>Quantité</label>
                 <select name="quantite">
@@ -139,15 +112,24 @@ $liste = listerProduits($conn);
 
 
 
-        <input type="submit" name="envoi" value="Envoyer">
+            <input type="submit" name="envoi" value="Envoyer">
 
-        <?php if (isset($_POST["envoi"]))
-            enregistrerCommande($conn, $_POST["produit"], $_POST["nomClient"], $_POST["quantite"]);
-        ?>
+            <?php if (isset($_POST["envoi"]))
+                enregistrerCommande($conn, $_POST["produit"], $_POST["nomClient"], $_POST["quantite"]);
+            ?>
+            </form>
 
-        </form>
 
-    </main>
-</body>
+
+            
+
+            
+            
+        </section>     
+
+<!--     NAVIGATION     -->    
+        <?php include "../navigation.php"; ?>
+        </main>
+    </body>
 
 </html>
