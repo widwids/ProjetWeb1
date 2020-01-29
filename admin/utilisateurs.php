@@ -15,6 +15,8 @@ $liste = listerUtilisateurs($conn);
     <meta charset="UTF-8">
     <title>Liste des utilisateurs</title>
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Oswald|Play|Roboto&display=swap" rel="stylesheet"> </head>
+
 </head>
 
 <header>

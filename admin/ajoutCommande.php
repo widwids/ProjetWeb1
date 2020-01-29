@@ -18,6 +18,8 @@ $liste = listerProduits($conn);
     <meta charset="UTF-8">
     <title>Ajouter une commande</title>
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Oswald|Play|Roboto&display=swap" rel="stylesheet"> </head>
+
 </head>
 
 <header>
@@ -32,11 +34,6 @@ $liste = listerProduits($conn);
 
 
 <body>
-    
-
-    
-
-
     <main class="boiteGrise">
         <section class="affichage">
 

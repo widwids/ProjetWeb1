@@ -16,7 +16,7 @@ $liste = listerProduits($conn, $recherche);
     <meta charset="UTF-8">
     <title>Catalogue produits</title>
     <link rel="stylesheet" href="../assets/css/style.css">
-</head>
+    <link href="https://fonts.googleapis.com/css?family=Oswald|Play|Roboto&display=swap" rel="stylesheet"> </head>
 
 <header>
     <h1>Luna Inc.</h1> 

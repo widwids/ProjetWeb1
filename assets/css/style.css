@@ -4,23 +4,21 @@
 html {
     background-image: url("../img/moon.jpg");
     background-size: cover;
+    
+    font-family: 'Oswald', sans-serif;
+
 }
 
 
 
 .boiteGrise {
-    /* position: absolute;
-    width: 1080px;
-    height: 790px;
-    left: 420px;
-    top: 174px; */
-
     display: grid;
     grid-template-columns: 8fr 2fr; 
     
+    
     width: 62%;
     margin: auto;    
-    height: 790px;
+    height: 700px;
 
     background: #CFCCD6;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
@@ -28,44 +26,52 @@ html {
 }
 
 header {
-    
-    /* position: absolute;
-    width: 388px;
-    height: 208px;
-    left: 420px;
-    top: 70px; */
-
     margin-left: 20%;
-
     font-family: Play;
     font-style: normal;
     font-weight: bold;
-    font-size: 1.5em;
+    font-size: 2em;
     line-height: 0.3em;
 
     color: #FFFFFF;
 }
 
+
+
 .affichage {
-    /* position: absolute;
-    width: 800px;
-    height: 663px;
-    left: 448px;
-    top: 193px; 
-
-    
- */
-
     background: #FFFFFF;
     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
-    margin: 10px;
+    margin: 20px;
 
     display: grid;
-/*     grid-template-columns: minmax(150px, 1fr);
- */}
+    grid-template-columns: minmax(600px, 1fr);
+    text-align: center;
 
-nav {
+}
+
+tbody, form {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+}
+
+.button {
+    background: #668BD3;
+    border: none;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    width: 100%;
+    height: 50px;
+    display: inline-block;
+    margin: 5px -10px;
+    cursor: pointer;
+
+    font-family: Roboto;
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
     
 
 }

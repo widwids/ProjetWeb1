@@ -13,6 +13,8 @@ require_once("../inc/sql.php");
     <meta charset="UTF-8">
     <title>Ajout d'une categorie</title>
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Oswald|Play|Roboto&display=swap" rel="stylesheet"> </head>
+
 </head>
 
 
@@ -28,10 +30,7 @@ require_once("../inc/sql.php");
 <body>
     <main class="boiteGrise">
         <section class="affichage">
-            <p><?php echo isset($retSQL) ? $retSQL : "&nbsp;" ?></p>
-
             <form action="" method="post">
-
                 <label>Nom de la categorie</label>
                 <input type="text" name="nom" value="<?php echo isset($nom) ? $nom : "" ?>" required>
                 <span><?php echo isset($erreurs['nom']) ? $erreurs['nom'] : "&nbsp;"  ?></span>
@@ -42,11 +41,13 @@ require_once("../inc/sql.php");
                 ajouterCategorie($conn, $_POST);
             ?>
             </form>
-        </section>     
+        </section>
+      
 
-<!--     NAVIGATION     -->    
-        <?php include "../navigation.php"; ?>
-    </main>
+      <!--     NAVIGATION     -->    
+              <?php include "../navigation.php"; ?>
+          </main>
+          <p><?php echo isset($retSQL) ? $retSQL : "&nbsp;" ?></p>
 </body>
 
 </html>
