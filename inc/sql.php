@@ -18,8 +18,6 @@ function listerProduits($conn, $recherche = "")
     $stmt = mysqli_prepare($conn, $req);
     $recherche = "%" . $recherche . "%";
 
-/*     mysqli_stmt_bind_param($stmt, "s", $recherche);
- */
     if (mysqli_stmt_execute($stmt)) {
         $result = mysqli_stmt_get_result($stmt);
         $nbResult = mysqli_num_rows($result);
@@ -82,6 +80,7 @@ function ajouterProduit($conn, $produit)
     $stmt = mysqli_prepare($conn, $req);
     mysqli_stmt_bind_param($stmt, "ssdis", $produit["nom"], $produit["description"], $produit["prix"], $produit["quantite"], $produit["categorie"]);
     if (mysqli_stmt_execute($stmt)) {
+        echo "<meta http-equiv='refresh' content='0'>";
         return mysqli_stmt_affected_rows($stmt);
     } else {
         errSQL($conn);
@@ -105,6 +104,7 @@ function ajouterCategorie($conn, $categorie)
     $stmt = mysqli_prepare($conn, $req);
     mysqli_stmt_bind_param($stmt, "s", $categorie["nom"]);
     if (mysqli_stmt_execute($stmt)) {
+        echo "<meta http-equiv='refresh' content='0'>";
         return mysqli_stmt_affected_rows($stmt);
     } else {
         errSQL($conn);
@@ -160,6 +160,7 @@ function ajouterClient($conn, $clients)
     $stmt = mysqli_prepare($conn, $req);
     mysqli_stmt_bind_param($stmt, "sss", $clients["adresse"], $clients["telephone"], $clients["nom"]);
     if (mysqli_stmt_execute($stmt)) {
+        echo "<meta http-equiv='refresh' content='0'>";
         return mysqli_stmt_affected_rows($stmt);
     } else {
         errSQL($conn);
@@ -213,6 +214,7 @@ function ajouterUtilisateur($conn, $utilisateurs)
     $stmt = mysqli_prepare($conn, $req);
     mysqli_stmt_bind_param($stmt, "sss", $utilisateurs["nom"], $utilisateurs["mdp"], $utilisateurs["privilege"]);
     if (mysqli_stmt_execute($stmt)) {
+        echo "<meta http-equiv='refresh' content='0'>";
         return mysqli_stmt_affected_rows($stmt);
     } else {
         errSQL($conn);
@@ -343,48 +345,6 @@ function enregistrerCommande($conn, $commande) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    /* // Insert les produits commandés dans la table commandes_produits
-    $req = "INSERT INTO commandes_produits (produit_id, commande_id, quantite_produit) VALUES (" . $_POST["produit"] . ", $commande_id," . $_POST["quantite"] . ");";
-        
-    if ($result = mysqli_query($conn, $req)) {
-        $row = mysqli_affected_rows($conn);
-    } else {
-        errSQL($conn);
-        mysqli_rollback($conn);
-        exit;
-    }
-
-    // mise à jours à jours de la quantité des produits commandés
-        $req = "UPDATE produits SET produits_quantite = produits_quantite -". $_POST["quantite"] . ");";
-
-        if ($result = mysqli_query($conn, $req)) {
-            $row = mysqli_affected_rows($conn);
-        } else {
-            errSQL($conn);
-            mysqli_rollback($conn);
-            exit;
-        } */
-    
-    
 
     
 }
@@ -601,9 +561,61 @@ function supprimerUtilisateur($conn, $utilisateur)
     }
 }
 
+/**
+ * Fonction controlerUtilisateur,
+ * Auteur   : Vincent
+ * Date     : 30-01-2020
+ * But      : contrôler l'authentification de l'utilisateur dans la table utilisateur,
+ * Input    : $conn = contexte de connexion,
+ *                       $utilisateurs_nom,
+ *                       $utilisateurs_password,
+ * Output   : 1 si utilisateur avec $utilisateurs_nom et $utilisateurs_password trouvé sinon 0.
+ */
+function controlerUtilisateur($conn, $utilisateurs_nom, $utilisateurs_password)
+{
+    $req = "SELECT * FROM utilisateurs
+            WHERE utilisateurs_nom=? AND utilisateurs_password = SHA2(?, 256)";
+    $stmt = mysqli_prepare($conn, $req);
+    mysqli_stmt_bind_param($stmt, "ss", $utilisateurs_nom, $utilisateurs_password);
+    if (mysqli_stmt_execute($stmt)) {
+        $result = mysqli_stmt_get_result($stmt);
+        return mysqli_num_rows($result);
+    } else {
+        errSQL($conn);
+        exit;
+    }
+}
 
+/**
+ * Fonction lireClientID
+ * Auteur   : Vincent
+ * Date     : 30-01-2020
+ * But      : Récupérer le ID d'un client à partir de son identifiant 
+ * Input    : $conn = contexte de connexion
+ *            $identifiant = adresse email  du client
+ * Output   : $row  = ligne correspondant à l'identifiant du client
+ *                    tableau vide si non trouvée     
+ */
+function lireNomUtilisateur($conn, $utilisateurs_nom)
+{
 
+    $req = "SELECT * FROM utilisateurs WHERE utilisateurs_nom ='$utilisateurs_nom'";
 
+    if ($result = mysqli_query($conn, $req)) {
+        $nbResult = mysqli_num_rows($result);
+        $row = array();
+        if ($nbResult) {
+            mysqli_data_seek($result, 0);
+            $row = mysqli_fetch_array($result);
+        }
+        mysqli_free_result($result);
+        $id = $row['utilisateurs_nom'];
+        return $id;
+    } else {
+        errSQL($conn);
+        exit;
+    }
+}
 
 
 

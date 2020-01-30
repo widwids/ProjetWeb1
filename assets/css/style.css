@@ -16,7 +16,8 @@ html {
     grid-template-columns: 8fr 150px; 
     grid-template-rows: 30% 70%;
     
-    width: 85%;
+    width: 90%;
+    min-width: 500px;
     margin: auto;    
     height: 700px;
 
@@ -24,9 +25,24 @@ html {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 5px;
 }
+.login {
+    margin: auto;
+    width: 300px;
+    height: 175px;
+    padding-top: 5px;
+    margin: 10% auto;
+
+    background: #CFCCD6;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+
+    text-align: center;
+    font-size: 20px;
+
+}
 
 header {
-    margin-left: 7%;
+    margin-left: 5%;
     font-family: Play;
     font-style: normal;
     font-weight: bold;
@@ -36,6 +52,11 @@ header {
     color: #FFFFFF;
 }
 
+a {
+    text-decoration: none;
+    color: white;
+
+}
 
 
 .affichage {
@@ -79,4 +100,69 @@ tbody, form {
     padding: 0px;
     
 
+}
+ 
+    /* mouse over link */
+    .button:hover {
+        background: #0a369d;
+    }
+    
+    /* selected link */
+    .button:active {
+        background: white;
+        color: #668BD3;
+    } 
+
+input {
+    max-width: 80px;
+}
+
+
+.submit {
+    background: #847979;
+    border: none;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    width: 90%;
+    min-width: 90px;
+    max-width: 300px;
+    min-height: 20px;
+    display: inline-block;
+    margin: 5px 0px;
+    
+    cursor: pointer;
+
+    font-family: Roboto;
+    font-size: 15px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    padding: 0px;
+}
+
+    /* mouse over link */
+    .submit:hover {
+        background: #CFCCD6;
+    }
+    
+    /* selected link */
+    .submit:active {
+        background: white;
+        color: #668BD3;
+    } 
+
+
+.deconnexion {
+    position: absolute;
+    top: 0px;
+    right: 100px
+}
+/* mouse over link */
+.deconnexion:hover {
+    color: #CFCCD6;
+}
+
+/* selected link */
+.deconnexion:active {
+    color: #847979;
 }

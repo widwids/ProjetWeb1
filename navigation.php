@@ -1,9 +1,10 @@
 <nav>        
     <p class="menu">
+        <a href="deconnexion.php" class="deconnexion"><br>Déconnexion</a><br>
         <a href="commandes.php" class="button"><br>Commandes</a><br>
         <a href="clients.php" class="button"><br>Clients</a><br>
 
-        <a href="categorie.php" class="button"><br>Categories</a><br>
+        <a href="categorie.php" class="button"><br>Catégories</a><br>
         <a href="produits.php" class="button"><br>Produits</a><br>
 
         <a href="utilisateurs.php" class="button"><br>Utilisateurs</a><br>

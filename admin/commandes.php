@@ -7,6 +7,55 @@ $client = listerClients($conn);
 $liste = listerProduits($conn);
 
 
+
+
+
+
+/* 
+
+
+// define how many results you want per page
+$results_per_page = 10;
+
+// find out the number of results stored in database
+$sql='SELECT * FROM commandes';
+$result = mysqli_query($conn, $sql);
+$number_of_results = mysqli_num_rows($result);
+
+// determine number of total pages available
+$number_of_pages = ceil($number_of_results/$results_per_page);
+
+// determine which page number visitor is currently on
+if (!isset($_GET['page'])) {
+  $page = 1;
+} else {
+  $page = $_GET['page'];
+}
+
+// determine the sql LIMIT starting number for the results on the displaying page
+$this_page_first_result = ($page-1)*$results_per_page;
+
+// retrieve selected results from database and display them on page
+$sql='SELECT * FROM commandes LIMIT ' . $this_page_first_result . ',' .  $results_per_page;
+$result = mysqli_query($conn, $sql);
+
+while($row = mysqli_fetch_array($result)) {
+  echo $row['id'] . ' ' . $row['fk_client_id']. '<br>';
+}
+
+// display the links to the pages
+for ($page=1;$page<=$number_of_pages;$page++) {
+  echo '<a href="commandes.php?page=' . $page . '">' . $page . '</a> ';
+}
+
+ */
+
+
+
+
+
+
+
 ?>
 
 
@@ -22,7 +71,7 @@ $liste = listerProduits($conn);
 
 </head>
 <header>
-    <h1>Luna Inc.</h1> 
+<h1><a href="commandes.php">Luna Inc.</a></h1> 
     <h3>Catalogue des commandes</h3>
 </header>
 
@@ -38,19 +87,19 @@ $liste = listerProduits($conn);
             <form action="" method="post">
             <h3>Ajouter une commande : </h3>
 
-            <label>Date</label>
+            <label>Date : </label>
             <input type="text" name="date" value="<?php echo isset($date) ? $date : "" ?>" required>
             <span><?php echo isset($erreurs['date']) ? $erreurs['date'] : "&nbsp;"  ?></span>
 
-            <label>Adresse </label>
+            <label>Adresse : </label>
             <input type="text" name="adresse" value="<?php echo isset($adresse) ? $adresse : "" ?>" required>
             <span><?php echo isset($erreurs['adresse']) ? $erreurs['adresse'] : "&nbsp;"  ?></span>
 
-            <label>Etat</label>
+            <label>Etat :</label>
             <input type="text" name="etat" value="<?php echo isset($etat) ? $etat : "" ?>" required>
             <span><?php echo isset($erreurs['etat']) ? $erreurs['etat'] : "&nbsp;"  ?></span>
 
-            <label>Commentaires</label>
+            <label>Commentaires :</label>
             <input type="text" name="commentaire" value="<?php echo isset($commentaire) ? $commentaire : "" ?>">
             <span><?php echo isset($erreurs['commentaire']) ? $erreurs['commentaire'] : "&nbsp;"  ?></span>
 
@@ -60,7 +109,7 @@ $liste = listerProduits($conn);
             <table>
                 <?php if (count($client) > 0) : ?>
 
-                    <label>Nom du client</label>
+                    <label>Nom du client :</label>
                     <select name="nomClient">
                         <?php foreach ($client as $row) : ?>
                             <option value="<?= $row["clients_id"] ?>"><?= $row["clients_nom"] ?></option>
@@ -78,7 +127,7 @@ $liste = listerProduits($conn);
             <table>
             <?php if (count($liste) > 0) : ?>
 
-                <label>Produit</label>
+                <label>Produit :</label>
                 <select name="produit">
                     <?php foreach ($liste as $row) : ?>
                         <option value="<?= $row["produits_id"] ?>"><?= $row["produits_nom"] ?></option>
@@ -91,9 +140,11 @@ $liste = listerProduits($conn);
 
 
 
+            <label>Quantité :</label>
+            <input type="text" name="quantite" value="<?php echo isset($quantite) ? $quantite : "" ?>">
+            <span><?php echo isset($erreurs['quantite']) ? $erreurs['quantite'] : "&nbsp;"  ?></span>
 
-
-            <table>    
+            <!-- <table>    
                 <label>Quantité</label>
                 <select name="quantite">
                 <option value="1">1</option>
@@ -102,13 +153,13 @@ $liste = listerProduits($conn);
                 <option value="4">4</option>
                 <option value="5">5</option>
                 </select> 
-            </table>
+            </table> -->
 
 
 
 
 
-            <input type="submit" name="envoi" value="Enregistrer">
+            <input class="submit" type="submit" name="envoi" value="Enregistrer">
 
             <?php if (isset($_POST["envoi"]))
                 enregistrerCommande($conn, $_POST);
@@ -123,14 +174,14 @@ $liste = listerProduits($conn);
 
         <table class="affichage">
             <tr>
-                <th>Numéro de commande</th>
+                <th>Numéro</th>
                 <th>Date</th>
                 <th>Adresse</th>
                 <th>État</th>
                 <th>Commentaire</th>
                 <th>Nom du client</th>
                 <th>Produit</th>
-                <th>Quantite</th>
+                <th>Quantité</th>
 
 
                 <th>Action</th>
@@ -150,8 +201,8 @@ $liste = listerProduits($conn);
                     <td><input type="text" name="Produit" value="<?= $row["Produit"] ?>" required></td>
                     <td><input type="text" name="Quantite" value="<?= $row["Quantite"] ?>" required></td>
 
-                    <td><input type="submit" name="envoiModifier" value="Modifier"></td>
-                    <td><input type="submit" name="envoiSupprimer" value="Supprimer"></td>         
+                    <td><input class="submit" type="submit" name="envoiModifier" value="Modifier"></td>
+                    <td><input class="submit" type="submit" name="envoiSupprimer" value="Supprimer"></td>         
                     </form>
                     
                 </tr>

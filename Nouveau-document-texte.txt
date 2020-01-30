@@ -72,14 +72,11 @@ enregistrer commande
 
 
 fix add commande
-
-combine tables and add/delete/modify
 notify transaction state
+
 fill bdd
 
 fix decimal on prices
-MAYBE fix displacement of nav on ajouter produit quand no categorie
-
 
 regex
 pagination

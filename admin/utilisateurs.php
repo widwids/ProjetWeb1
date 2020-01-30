@@ -20,7 +20,7 @@ $liste = listerUtilisateurs($conn);
 </head>
 
 <header>
-    <h1>Luna Inc.</h1> 
+<h1><a href="commandes.php">Luna Inc.</a></h1> 
     <h3>Liste des utilisateurs</h3>
 </header>
 
@@ -36,22 +36,22 @@ $liste = listerUtilisateurs($conn);
     <section class="affichage">
             <form action="" method="post">
             <h3>Ajouter un utilisateur : </h3>
-            <label>Identifiant</label>
+            <label>Identifiant :</label>
             <input type="text" name="nom" value="<?php echo isset($nom) ? $nom : "" ?>" required>
             <span><?php echo isset($erreurs['nom']) ? $erreurs['nom'] : "&nbsp;"  ?></span>
 
-            <label>Mot de passe</label>
+            <label>Mot de passe :</label>
             <input type="text" name="mdp" value="<?php echo isset($mdp) ? $mdp : "" ?>" required>
             <span><?php echo isset($erreurs['mdp']) ? $erreurs['mdp'] : "&nbsp;"  ?></span>
 
-            <label>Niveau d'accès</label>
+            <label>Niveau d'accès :</label>
             <input type="text" name="privilege" value="<?php echo isset($privilege) ? $privilege : "" ?>" required>
             <span><?php echo isset($erreurs['privilege']) ? $erreurs['privilege'] : "&nbsp;"  ?></span>
 
             
            
             
-            <input type="submit" name="envoi" value="Enregistrer">
+            <input class="submit" type="submit" name="envoi" value="Enregistrer">
 
                 <?php if (isset($_POST["envoi"]))
                     ajouterUtilisateur($conn, $_POST);
@@ -85,8 +85,8 @@ $liste = listerUtilisateurs($conn);
                     <td><input type="text" name="utilisateurs_password" value="<?= $row["utilisateurs_password"] ?>" required></td>
                     <td><input type="text" name="utilisateurs_privilege" value="<?= $row["utilisateurs_privilege"] ?>" required></td>
                     
-                    <td><input type="submit" name="envoiModifier" value="Modifier"></td>
-                    <td><input type="submit" name="envoiSupprimer" value="Supprimer"></td> 
+                    <td><input class="submit" type="submit" name="envoiModifier" value="Modifier"></td>
+                    <td><input class="submit" type="submit" name="envoiSupprimer" value="Supprimer"></td> 
                 </form> 
             </tr>
         <?php

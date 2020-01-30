@@ -20,7 +20,7 @@ $liste = listerCategories($conn);
     </head>
 
     <header>
-        <h1>Luna Inc.</h1> 
+    <h1><a href="commandes.php">Luna Inc.</a></h1> 
         <h3>Catalogue des categories</h3>
     </header>
 
@@ -32,11 +32,11 @@ $liste = listerCategories($conn);
             <section class="affichage">
                 <form action="" method="post">
                     <h3>Ajouter une categorie de produit : </h3>
-                    <label>Nom de la categorie</label>
+                    <label>Nom de la categorie :</label>
                     <input type="text" name="nom" value="<?php echo isset($nom) ? $nom : "" ?>" required>
                     <span><?php echo isset($erreurs['nom']) ? $erreurs['nom'] : "&nbsp;"  ?></span>
                 
-                <input type="submit" name="envoi" value="Enregistrer">
+                <input class="submit" type="submit" name="envoi" value="Enregistrer">
 
                 <?php if (isset($_POST["envoi"]))
                     ajouterCategorie($conn, $_POST);
@@ -52,7 +52,7 @@ $liste = listerCategories($conn);
 
             <table class="affichage">
                 <tr>
-                    <th>Numero de serie</th>
+                    <th>Numéro de catégorie</th>
                     <th>Nom</th>
 
                     <th>Action</th>
@@ -65,8 +65,8 @@ $liste = listerCategories($conn);
                         <td><input type="text" name="categories_id" value="<?= $row["categories_id"] ?>" readonly></td>
                         <td><input type="text" name="categories_nom" value="<?= $row["categories_nom"] ?>" required></td>
 
-                        <td><input type="submit" name="envoiModifier" value="Modifier"></td>
-                        <td><input type="submit" name="envoiSupprimer" value="Supprimer"></td>
+                        <td><input class="submit" type="submit" name="envoiModifier" value="Modifier"></td>
+                        <td><input class="submit" type="submit" name="envoiSupprimer" value="Supprimer"></td>
                     </form>                             
                     </tr>
                 <?php

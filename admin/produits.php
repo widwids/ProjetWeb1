@@ -18,10 +18,11 @@ $categorie = listerCategories($conn);
     <meta charset="UTF-8">
     <title>Catalogue produits</title>
     <link rel="stylesheet" href="../assets/css/style.css">
-    <link href="https://fonts.googleapis.com/css?family=Oswald|Play|Roboto&display=swap" rel="stylesheet"> </head>
+    <link href="https://fonts.googleapis.com/css?family=Oswald|Play|Roboto&display=swap" rel="stylesheet"> 
+</head>
 
 <header>
-    <h1>Luna Inc.</h1> 
+    <h1><a href="commandes.php">Luna Inc.</a></h1> 
     <h3>Catalogue des produits</h3>
 </header>
 
@@ -30,11 +31,8 @@ $categorie = listerCategories($conn);
 
 
 <body>
-    <main class="boiteGrise">
-        
-    
-    <section class="affichage">
-                         
+    <main class="boiteGrise">   
+        <section class="affichage">                        
                   
                          <form action="" method="post">
 
@@ -70,7 +68,7 @@ $categorie = listerCategories($conn);
                              <?php endif; ?>
      
      
-                         <input type="submit" name="envoi" value="Enregistrer">
+                         <input class="submit" type="submit" name="envoi" value="Enregistrer">
      
                          <?php if (isset($_POST["envoi"]))
                          ajouterProduit($conn, $_POST);
@@ -119,8 +117,8 @@ $categorie = listerCategories($conn);
                         </select>
                     </td>
 
-                    <td><input type="submit" name="envoiModifier" value="Modifier"></td>
-                    <td><input type="submit" name="envoiSupprimer" value="Supprimer"></td>         
+                    <td><input class="submit" type="submit" name="envoiModifier" value="Modifier"></td>
+                    <td><input class="submit" type="submit" name="envoiSupprimer" value="Supprimer"></td>         
                     </form>                    
                 </tr>
             <?php

@@ -23,7 +23,7 @@ $liste = listerClients($conn);
 
 
 <header>
-    <h1>Luna Inc.</h1> 
+<h1><a href="commandes.php">Luna Inc.</a></h1> 
     <h3>Liste des clients</h3>
 </header>
 
@@ -39,19 +39,19 @@ $liste = listerClients($conn);
 
                 <h3>Ajouter un client : </h3>
 
-                <label>Adresse</label>
+                <label>Adresse :</label>
                 <input type="text" name="adresse" value="<?php echo isset($adresse) ? $adresse : "" ?>" required>
                 <span><?php echo isset($erreurs['adresse']) ? $erreurs['adresse'] : "&nbsp;"  ?></span>
 
-                <label>Telephone</label>
+                <label>Telephone :</label>
                 <input type="text" name="telephone" value="<?php echo isset($telephone) ? $telephone : "" ?>" required>
                 <span><?php echo isset($erreurs['telephone']) ? $erreurs['telephone'] : "&nbsp;"  ?></span>
 
-                <label>Nom</label>
+                <label>Nom :</label>
                 <input type="text" name="nom" value="<?php echo isset($nom) ? $nom : "" ?>" required>
                 <span><?php echo isset($erreurs['nom']) ? $erreurs['nom'] : "&nbsp;"  ?></span>
             
-                <input type="submit" name="envoi" value="Enregistrer">
+                <input class="submit" type="submit" name="envoi" value="Enregistrer">
 
                     <?php if (isset($_POST["envoi"]))
                         ajouterClient($conn, $_POST);
@@ -66,9 +66,9 @@ $liste = listerClients($conn);
 
         <table class="affichage">
             <tr>
-                <th>Numero de client</th>
+                <th>Numéro de client</th>
                 <th>Adresse</th>
-                <th>Telephone</th>
+                <th>Téléphone</th>
                 <th>Nom</th>
 
 
@@ -84,8 +84,8 @@ $liste = listerClients($conn);
                         <td><input type="text" name="clients_telephone" value="<?= $row["clients_telephone"] ?>" required></td>
                         <td><input type="text" name="clients_nom" value="<?= $row["clients_nom"] ?>" required></td>
 
-                        <td><input type="submit" name="envoiModifier" value="Modifier"></td>
-                        <td><input type="submit" name="envoiSupprimer" value="Supprimer"></td>
+                        <td><input class="submit" type="submit" name="envoiModifier" value="Modifier"></td>
+                        <td><input class="submit" type="submit" name="envoiSupprimer" value="Supprimer"></td>
                     </form>                  
                 </tr>
         <?php
