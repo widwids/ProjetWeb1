@@ -24,15 +24,19 @@
 
 
 fix add commande
+
 combine tables and add/delete/modify
+notify transaction state
 
 fix decimal on prices
 stretch tables to fit ???
-
+MAYBE fix displacement of nav on ajouter produit quand no categorie
 
 
 regex
 pagination
+
 login
 delete
+
 modify

@@ -6,6 +6,8 @@ require_once("../inc/sql.php");
 $recherche = isset($_POST['recherche']) ? trim($_POST['recherche']) : "";
 
 $liste = listerProduits($conn, $recherche);
+$categorie = listerCategories($conn);
+
 
 ?>
 
@@ -43,23 +45,34 @@ $liste = listerProduits($conn, $recherche);
             <?php foreach ($liste as $row) :
                 ?>
                 <tr>
-                    <td><?= $row["produits_id"] ?></td>
-                    <td><?= $row["produits_nom"] ?></td>
-                    <td><?= $row["produits_description"] ?></td>
-                    <td><?= $row["produits_prix"] . " $" ?></td>
-                    <td><?= $row["produits_quantite"] . "" ?></td>
-                    <td><?= $row["fk_categorie_id"] ?></td>
-                    <!-- <td> 
-                        <a href="modificationProduit.php?id=<?= $row['produit_id'] ?>">Modifier</a>
-                        <a href="suppressionProduit.php?id=<?= $row['produit_id'] ?>">Supprimer</a>
-                    </td> -->
+                    <form action="" method="post">
+                    <td><input type="text" name="produits_id" value="<?= $row["produits_id"] ?>" readonly></td>
+
+                    <td><input type="text" name="produits_nom" value="<?= $row["produits_nom"] ?>" required></td>
+                    <td><input type="text" name="produits_description" value="<?= $row["produits_description"] ?>" required></td>
+                    <td><input type="text" name="produits_prix" value="<?= $row["produits_prix"] ?>" required></td>
+                    <td><input type="text" name="produits_quantite" value="<?= $row["produits_quantite"] ?>" required></td>
+                    <td>
+                        <select name="fk_categorie_id">
+                                <?php foreach ($categorie as $rowCategorie) : ?>
+                                    <option <?php if($rowCategorie["categories_id"] == $row["fk_categorie_id"]) { echo 'selected="selected"'; }?> value="<?= $rowCategorie["categories_id"] ?>"><?= $rowCategorie["categories_nom"] ?></option>
+                                <?php endforeach; ?>
+                        </select>
+                    </td>
+
+                    <td><input type="submit" name="envoiModifier" value="Modifier"></td>
+
+                    
+                    </form>
                     
                 </tr>
             <?php
             endforeach; ?>
         </table>
       
-
+        <?php if (isset($_POST["envoiModifier"]))
+        modifierProduit($conn, $_POST);?>
+        
 <!--     NAVIGATION     -->    
         <?php include "../navigation.php"; ?>
     </main>

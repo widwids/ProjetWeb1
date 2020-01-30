@@ -396,8 +396,29 @@ function errSQL($conn)
 <?php
 }
 
-
-
-
+/** 
+ * Fonction modifierProduit
+ * Auteur   : Vincent
+ * Date     : 29-01-2020
+ * But    : modifier une ligne dans la table produit  
+ * Arguments en entrée : $conn = contexte de connexion
+ *                       $produit
+ * Valeurs de retour   : 1    si ajout effectuée
+ *                       0    si aucun ajout
+ */
+function modifierProduit($conn, $produit)
+{
+    $req = "UPDATE produits SET produits_nom = ?, produits_description = ?, produits_prix = ?, produits_quantite = ?, fk_categorie_id = ?
+    WHERE produits_id = ?";
+    $stmt = mysqli_prepare($conn, $req);
+    mysqli_stmt_bind_param($stmt, "ssdiss", $produit["produits_nom"], $produit["produits_description"], $produit["produits_prix"], $produit["produits_quantite"], $produit["fk_categorie_id"], $produit["produits_id"]);
+    if (mysqli_stmt_execute($stmt)) {
+    echo "<meta http-equiv='refresh' content='0'>";
+        return mysqli_stmt_affected_rows($stmt);
+    } else {
+        errSQL($conn);
+        exit;
+    }
+}
 
 ?>
