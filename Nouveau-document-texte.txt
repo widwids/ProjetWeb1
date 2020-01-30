@@ -11,3 +11,28 @@
         <?php else : ?>
             <p>Aucune categorie trouvé.</p>
         <?php endif; ?>
+
+
+
+
+
+
+
+
+
+        ---------------------
+
+
+fix add commande
+combine tables and add/delete/modify
+
+fix decimal on prices
+stretch tables to fit ???
+
+
+
+regex
+pagination
+login
+delete
+modify
