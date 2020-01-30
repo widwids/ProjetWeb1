@@ -31,6 +31,41 @@ $liste = listerUtilisateurs($conn);
 
 <body>
     <main class="boiteGrise">
+
+
+    <section class="affichage">
+            <form action="" method="post">
+            <h3>Ajouter un utilisateur : </h3>
+            <label>Identifiant</label>
+            <input type="text" name="nom" value="<?php echo isset($nom) ? $nom : "" ?>" required>
+            <span><?php echo isset($erreurs['nom']) ? $erreurs['nom'] : "&nbsp;"  ?></span>
+
+            <label>Mot de passe</label>
+            <input type="text" name="mdp" value="<?php echo isset($mdp) ? $mdp : "" ?>" required>
+            <span><?php echo isset($erreurs['mdp']) ? $erreurs['mdp'] : "&nbsp;"  ?></span>
+
+            <label>Niveau d'accès</label>
+            <input type="text" name="privilege" value="<?php echo isset($privilege) ? $privilege : "" ?>" required>
+            <span><?php echo isset($erreurs['privilege']) ? $erreurs['privilege'] : "&nbsp;"  ?></span>
+
+            
+           
+            
+            <input type="submit" name="envoi" value="Enregistrer">
+
+                <?php if (isset($_POST["envoi"]))
+                    ajouterUtilisateur($conn, $_POST);
+                ?>
+            </form>
+        </section>
+      
+
+      <!--     NAVIGATION     -->    
+              <?php include "../navigation.php"; ?>
+
+
+
+
         <table class="affichage">
             <tr>
                 <th>Identifiant</th>
@@ -44,30 +79,38 @@ $liste = listerUtilisateurs($conn);
             <?php foreach ($liste as $row) :
                 ?>
                 <tr>
-                    <td><?= $row["utilisateurs_nom"] ?></td>
-                    <td><?= $row["utilisateurs_password"] ?></td>
-                    <td><?= $row["utilisateurs_privilege"] ?></td>
+                <form action="" method="post">
 
-
-                    <!-- <td> 
-                        <a href="modificationProduit.php?id=<?= $row['produit_id'] ?>">Modifier</a>
-                        <a href="suppressionProduit.php?id=<?= $row['produit_id'] ?>">Supprimer</a>
-                    </td> -->                    
+                    <td><input type="text" name="utilisateurs_nom" value="<?= $row["utilisateurs_nom"] ?>" readonly></td>
+                    <td><input type="text" name="utilisateurs_password" value="<?= $row["utilisateurs_password"] ?>" required></td>
+                    <td><input type="text" name="utilisateurs_privilege" value="<?= $row["utilisateurs_privilege"] ?>" required></td>
+                    
+                    <td><input type="submit" name="envoiModifier" value="Modifier"></td>
+                    <td><input type="submit" name="envoiSupprimer" value="Supprimer"></td> 
+                </form> 
             </tr>
         <?php
         endforeach; ?>
         </table>
       
 
-      <!--     NAVIGATION     -->    
-              <?php include "../navigation.php"; ?>
+
           </main>
+
+          <?php if (isset($_POST["envoiModifier"]))
+        modifierUtilisateur($conn, $_POST);?>
+
+        <?php if (isset($_POST["envoiSupprimer"]))
+        supprimerUtilisateur($conn, $_POST);?>
+
+
+
           <p><?php echo isset($retSQL) ? $retSQL : "&nbsp;" ?></p>
 
 
     
     
-    <?php if (isset($_POST["envoi"])) : ?>
+<!--     <?php if (isset($_POST["envoi"])) : ?>
         <section>
             <p>Confirmez la commande de <?= $_POST['nbCommande'] ?> exemplaire(s) de <?= $_POST['nomProduit'] ?></p>
             <form class="form-suppression" action="" method="post">
@@ -76,7 +119,7 @@ $liste = listerUtilisateurs($conn);
                 <input type="submit" name="confirme" value="NON">
             </form>
         </section>
-    <?php endif; ?>
+    <?php endif; ?> -->
 
 </body>
 

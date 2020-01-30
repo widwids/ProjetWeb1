@@ -15,9 +15,57 @@
 
 
 
+*--*-*-*-*-*-*
+
+enregistrer commande
+
+/* foreach ($commande as $c { // Pour chaque produit commandé
+        // Récupération de la quantité actuelle des produits commandés
+        $req = "SELECT produits_quantite FROM produits WHERE produits_id=" . $c["produit"];
+        die($req);
+        if ($result = mysqli_query($conn, $req)) {
+            $row = mysqli_fetch_row($result);
+            $quantite = $row[0]; 
+        } else {
+            errSQL($conn);
+            mysqli_rollback($conn);
+            exit;
+        }
+
+        $nouvelleQuantite = $quantite - $c["quantité"];
+
+        // Insert les produits commandés dans la table commandes_produits
+        $req = "INSERT INTO commandes_produits (produit_id, commande_id, quantite_produit) VALUES (" . $c["produit"] . ", $commande_id," . $c["quantite"] . ");";
+        
+        if ($result = mysqli_query($conn, $req)) {
+            $row = mysqli_affected_rows($conn);
+        } else {
+            errSQL($conn);
+            mysqli_rollback($conn);
+            exit;
+        }
+
+        // Si il y a suffisament de stock, mise à jours à jours de la quantité des produits commandés
+        if ($c["quantité"] <= $quantite) {
+            $req = "UPDATE produits SET produits_quantite = $nouvelleQuantite WHERE produits_id = " . $c["produit"];
+    
+            if ($result = mysqli_query($conn, $req)) {
+                $row = mysqli_affected_rows($conn);
+            } else {
+                errSQL($conn);
+                mysqli_rollback($conn);
+                exit;
+            }
+        }
+        else {
+            mysqli_rollback($conn); ?>
+                <p class="erreur">Erreure : Plus assez de stock pour le produit numéro <?= $c["produit"] ?>.</p>
+        <?php  exit;
+        }
+    } */
 
 
-
+    mysqli_commit($conn);
 
 
         ---------------------
@@ -27,9 +75,9 @@ fix add commande
 
 combine tables and add/delete/modify
 notify transaction state
+fill bdd
 
 fix decimal on prices
-stretch tables to fit ???
 MAYBE fix displacement of nav on ajouter produit quand no categorie
 
 
@@ -37,6 +85,6 @@ regex
 pagination
 
 login
-delete
 
+delete
 modify

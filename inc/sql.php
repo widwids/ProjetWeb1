@@ -280,6 +280,18 @@ INNER JOIN
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
 /**
  * Fonction enregistrerCommande
  * Auteur : Vincent
@@ -289,25 +301,68 @@ INNER JOIN
  *                       $commande = tableau contenant les id et les quantités des produits commandés
  * Valeurs de retour   : aucune
  */
-function enregistrerCommande($conn, $commande, $client) {
-    mysqli_begin_transaction($conn); // Début de la transaction
+function enregistrerCommande($conn, $commande) {
+
+/*     mysqli_begin_transaction($conn); // Début de la transaction
+ */
+
+
+
 
     // Création de la commande
-    $req = "INSERT INTO commandes (fk_client_id, date, commandes_adresse, commandes_etat, commandes_commentaire) VALUES ($_POST[nomClient], $_POST[date], $_POST[adresse], $_POST[etat], $_POST[commentaire]);";
-        
-    if ($result = mysqli_query($conn, $req)) {
-        $row = mysqli_affected_rows($conn);
+    $req = "INSERT INTO commandes
+    (C.id as 'Numéro de commande', 
+    CL.clients_nom as 'Nom du client',
+    C.date as 'Date',
+    P.produits_nom as 'Produit',
+    PC.quantite_produit as 'Quantite',
+    P.produits_prix as 'Prix',
+    C.commandes_adresse as 'Adresse',
+    C.commandes_commentaire as 'Commentaire',
+    C.commandes_etat as 'État',
+    P.produits_id)
+    
+    FROM
+        commandes as C
+    INNER JOIN
+        commandes_produits as PC on PC.commande_id = C.id
+    INNER JOIN
+        produits as P on P.produits_id = PC.produit_id
+    INNER JOIN
+        clients as CL on CL.clients_id = C.fk_client_id
+    VALUES (?,?,?,?,?)";
+    $stmt = mysqli_prepare($conn, $req);
+    mysqli_stmt_bind_param($stmt, "ssssss", $commande["id"], $commande["date"], $commande["commandes_adresse"], $commande["commandes_etat"], $commande["commandes_commentaire"], $commande["fk_client_id"]);
+    if (mysqli_stmt_execute($stmt)) {
+        return mysqli_stmt_affected_rows($stmt);
     } else {
         errSQL($conn);
-        mysqli_rollback($conn);
         exit;
     }
 
-    $commande_id = mysqli_insert_id($conn);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     
-    // Insert les produits commandés dans la table commandes_produits
+    /* // Insert les produits commandés dans la table commandes_produits
     $req = "INSERT INTO commandes_produits (produit_id, commande_id, quantite_produit) VALUES (" . $_POST["produit"] . ", $commande_id," . $_POST["quantite"] . ");";
         
     if ($result = mysqli_query($conn, $req)) {
@@ -327,57 +382,11 @@ function enregistrerCommande($conn, $commande, $client) {
             errSQL($conn);
             mysqli_rollback($conn);
             exit;
-        }
+        } */
     
     
 
-    /* foreach ($commande as $c { // Pour chaque produit commandé
-        // Récupération de la quantité actuelle des produits commandés
-        $req = "SELECT produits_quantite FROM produits WHERE produits_id=" . $c["produit"];
-        die($req);
-        if ($result = mysqli_query($conn, $req)) {
-            $row = mysqli_fetch_row($result);
-            $quantite = $row[0]; 
-        } else {
-            errSQL($conn);
-            mysqli_rollback($conn);
-            exit;
-        }
-
-        $nouvelleQuantite = $quantite - $c["quantité"];
-
-        // Insert les produits commandés dans la table commandes_produits
-        $req = "INSERT INTO commandes_produits (produit_id, commande_id, quantite_produit) VALUES (" . $c["produit"] . ", $commande_id," . $c["quantite"] . ");";
-        
-        if ($result = mysqli_query($conn, $req)) {
-            $row = mysqli_affected_rows($conn);
-        } else {
-            errSQL($conn);
-            mysqli_rollback($conn);
-            exit;
-        }
-
-        // Si il y a suffisament de stock, mise à jours à jours de la quantité des produits commandés
-        if ($c["quantité"] <= $quantite) {
-            $req = "UPDATE produits SET produits_quantite = $nouvelleQuantite WHERE produits_id = " . $c["produit"];
     
-            if ($result = mysqli_query($conn, $req)) {
-                $row = mysqli_affected_rows($conn);
-            } else {
-                errSQL($conn);
-                mysqli_rollback($conn);
-                exit;
-            }
-        }
-        else {
-            mysqli_rollback($conn); ?>
-                <p class="erreur">Erreure : Plus assez de stock pour le produit numéro <?= $c["produit"] ?>.</p>
-        <?php  exit;
-        }
-    } */
-
-
-    mysqli_commit($conn);
 }
 
 
@@ -420,5 +429,182 @@ function modifierProduit($conn, $produit)
         exit;
     }
 }
+
+/** 
+ * Fonction supprimerProduit
+ * Auteur   : Vincent
+ * Date     : 30-01-2020
+ * But    : supprimer une ligne dans la table produit  
+ * Arguments en entrée : $conn = contexte de connexion
+ *                       $produit
+ * Valeurs de retour   : 1    si ajout effectuée
+ *                       0    si aucun ajout
+ */
+function supprimerProduit($conn, $produit)
+{
+    $req = "DELETE FROM produits WHERE produits_id = ?";
+    $stmt = mysqli_prepare($conn, $req);
+    mysqli_stmt_bind_param($stmt, "s", $produit["produits_id"]);
+    if (mysqli_stmt_execute($stmt)) {
+    echo "<meta http-equiv='refresh' content='0'>";
+        return mysqli_stmt_affected_rows($stmt);
+    } else {
+        errSQL($conn);
+        exit;
+    }
+}
+
+/** 
+ * Fonction modifierCategorie
+ * Auteur   : Vincent
+ * Date     : 30-01-2020
+ * But    : modifier une ligne dans la table categorie  
+ * Arguments en entrée : $conn = contexte de connexion
+ *                       $produit
+ * Valeurs de retour   : 1    si ajout effectuée
+ *                       0    si aucun ajout
+ */
+function modifierCategorie($conn, $categories)
+{
+    $req = "UPDATE categories SET categories_nom = ?
+    WHERE categories_id = ?";
+    $stmt = mysqli_prepare($conn, $req);
+    mysqli_stmt_bind_param($stmt, "ss", $categories["categories_nom"], $categories["categories_id"]);
+    if (mysqli_stmt_execute($stmt)) {
+    echo "<meta http-equiv='refresh' content='0'>";
+        return mysqli_stmt_affected_rows($stmt);
+    } else {
+        errSQL($conn);
+        exit;
+    }
+}
+
+/** 
+ * Fonction supprimerCategorie
+ * Auteur   : Vincent
+ * Date     : 30-01-2020
+ * But    : supprimer une ligne dans la table categorie  
+ * Arguments en entrée : $conn = contexte de connexion
+ *                       $categorie
+ * Valeurs de retour   : 1    si ajout effectuée
+ *                       0    si aucun ajout
+ */
+function supprimerCategorie($conn, $categorie)
+{
+     $req2 = "DELETE FROM categories WHERE categories_id = ?";
+    $stmt = mysqli_prepare($conn, $req2);
+    mysqli_stmt_bind_param($stmt, "s", $categorie["categories_id"]);
+    if (mysqli_stmt_execute($stmt)) {
+        echo "<meta http-equiv='refresh' content='0'>";
+        return mysqli_stmt_affected_rows($stmt);
+    } else {
+        errSQL($conn);
+        exit;
+    }
+}
+
+/** 
+ * Fonction modifierClient
+ * Auteur   : Vincent
+ * Date     : 30-01-2020
+ * But    : modifier une ligne dans la table client  
+ * Arguments en entrée : $conn = contexte de connexion
+ *                       $client
+ * Valeurs de retour   : 1    si ajout effectuée
+ *                       0    si aucun ajout
+ */
+function modifierClient($conn, $client)
+{
+    $req = "UPDATE clients SET clients_nom = ?, clients_telephone = ?, clients_adresse = ? 
+    WHERE clients_id = ?";
+    $stmt = mysqli_prepare($conn, $req);
+    mysqli_stmt_bind_param($stmt, "ssss", $client["clients_nom"], $client["clients_telephone"], $client["clients_adresse"], $client["clients_id"]);
+    if (mysqli_stmt_execute($stmt)) {
+    echo "<meta http-equiv='refresh' content='0'>";
+        return mysqli_stmt_affected_rows($stmt);
+    } else {
+        errSQL($conn);
+        exit;
+    }
+}
+
+/** 
+ * Fonction supprimerClient
+ * Auteur   : Vincent
+ * Date     : 30-01-2020
+ * But    : supprimer une ligne dans la table client  
+ * Arguments en entrée : $conn = contexte de connexion
+ *                       $client
+ * Valeurs de retour   : 1    si ajout effectuée
+ *                       0    si aucun ajout
+ */
+function supprimerClient($conn, $client)
+{
+     $req2 = "DELETE FROM clients WHERE clients_id = ?";
+    $stmt = mysqli_prepare($conn, $req2);
+    mysqli_stmt_bind_param($stmt, "s", $client["clients_id"]);
+    if (mysqli_stmt_execute($stmt)) {
+        echo "<meta http-equiv='refresh' content='0'>";
+        return mysqli_stmt_affected_rows($stmt);
+    } else {
+        errSQL($conn);
+        exit;
+    }
+}
+
+/** 
+ * Fonction modifierUtilisateur
+ * Auteur   : Vincent
+ * Date     : 30-01-2020
+ * But    : modifier une ligne dans la table utilisateur  
+ * Arguments en entrée : $conn = contexte de connexion
+ *                       $utilisateur
+ * Valeurs de retour   : 1    si ajout effectuée
+ *                       0    si aucun ajout
+ */
+function modifierUtilisateur($conn, $utilisateur)
+{
+    $req = "UPDATE utilisateurs SET utilisateurs_password = ?, utilisateurs_privilege = ? 
+    WHERE utilisateurs_nom = ?";
+    $stmt = mysqli_prepare($conn, $req);
+    mysqli_stmt_bind_param($stmt, "sss", $utilisateur["utilisateurs_password"], $utilisateur["utilisateurs_privilege"], $utilisateur["utilisateurs_nom"]);
+    if (mysqli_stmt_execute($stmt)) {
+    echo "<meta http-equiv='refresh' content='0'>";
+        return mysqli_stmt_affected_rows($stmt);
+    } else {
+        errSQL($conn);
+        exit;
+    }
+}
+
+/** 
+ * Fonction supprimerUtilisateur
+ * Auteur   : Vincent
+ * Date     : 30-01-2020
+ * But    : supprimer une ligne dans la table client  
+ * Arguments en entrée : $conn = contexte de connexion
+ *                       $utilisateur
+ * Valeurs de retour   : 1    si ajout effectuée
+ *                       0    si aucun ajout
+ */
+function supprimerUtilisateur($conn, $utilisateur)
+{
+    $req2 = "DELETE FROM utilisateurs WHERE utilisateurs_nom = ?";
+    $stmt = mysqli_prepare($conn, $req2);
+    mysqli_stmt_bind_param($stmt, "s", $utilisateur["utilisateurs_nom"]);
+    if (mysqli_stmt_execute($stmt)) {
+        echo "<meta http-equiv='refresh' content='0'>";
+        return mysqli_stmt_affected_rows($stmt);
+    } else {
+        errSQL($conn);
+        exit;
+    }
+}
+
+
+
+
+
+
 
 ?>

@@ -28,6 +28,28 @@ $liste = listerCategories($conn);
         
     <body>
         <main class="boiteGrise">
+
+            <section class="affichage">
+                <form action="" method="post">
+                    <h3>Ajouter une categorie de produit : </h3>
+                    <label>Nom de la categorie</label>
+                    <input type="text" name="nom" value="<?php echo isset($nom) ? $nom : "" ?>" required>
+                    <span><?php echo isset($erreurs['nom']) ? $erreurs['nom'] : "&nbsp;"  ?></span>
+                
+                <input type="submit" name="envoi" value="Enregistrer">
+
+                <?php if (isset($_POST["envoi"]))
+                    ajouterCategorie($conn, $_POST);
+                ?>
+                </form>
+            </section>
+      
+
+      <!--     NAVIGATION     -->    
+              <?php include "../navigation.php"; ?>
+
+
+
             <table class="affichage">
                 <tr>
                     <th>Numero de serie</th>
@@ -39,29 +61,30 @@ $liste = listerCategories($conn);
                 <?php foreach ($liste as $row) :
                     ?>
                     <tr>
-                        <td><?= $row["categories_id"] ?></td>
-                        <td><?= $row["categories_nom"] ?></td>
+                    <form action="" method="post">
+                        <td><input type="text" name="categories_id" value="<?= $row["categories_id"] ?>" readonly></td>
+                        <td><input type="text" name="categories_nom" value="<?= $row["categories_nom"] ?>" required></td>
 
-                        <!-- <td> 
-                            <a href="modificationProduit.php?id=<?= $row['produit_id'] ?>">Modifier</a>
-                            <a href="suppressionProduit.php?id=<?= $row['produit_id'] ?>">Supprimer</a>
-                        </td> -->
-                        
+                        <td><input type="submit" name="envoiModifier" value="Modifier"></td>
+                        <td><input type="submit" name="envoiSupprimer" value="Supprimer"></td>
+                    </form>                             
                     </tr>
                 <?php
                 endforeach; ?>
             </table>     
 
-<!--     NAVIGATION     -->    
-        <?php include "../navigation.php"; ?>
-        </main>
+      
         
-        
+        <?php if (isset($_POST["envoiModifier"]))
+        modifierCategorie($conn, $_POST);?>
+
+        <?php if (isset($_POST["envoiSupprimer"]))
+        supprimerCategorie($conn, $_POST);?>
 
 
 
 
-        <?php if (isset($_POST["envoi"])) : ?>
+        <!-- <?php if (isset($_POST["envoi"])) : ?>
             <section>
                 <p>Confirmez la commande de <?= $_POST['nbCommande'] ?> exemplaire(s) de <?= $_POST['nomProduit'] ?></p>
                 <form class="form-suppression" action="" method="post">
@@ -70,7 +93,7 @@ $liste = listerCategories($conn);
                     <input type="submit" name="confirme" value="NON">
                 </form>
             </section>
-        <?php endif; ?>
+        <?php endif; ?> -->
 
 
 
