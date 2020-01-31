@@ -1,7 +1,5 @@
 <?php
 
-session_start();
-
 $vendeur = "vendeur";
 $gestion = "gestion";
 $admin = "admin";
