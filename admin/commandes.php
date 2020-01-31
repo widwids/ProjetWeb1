@@ -111,7 +111,7 @@ for ($page=1;$page<=$number_of_pages;$page++) {
                 <?php if (count($client) > 0) : ?>
 
                     <label>Nom du client :</label>
-                    <select name="nomClient">
+                    <select name="client_id">
                         <?php foreach ($client as $row) : ?>
                             <option value="<?= $row["clients_id"] ?>"><?= $row["clients_nom"] ?></option>
                         <?php endforeach; ?>
@@ -129,7 +129,7 @@ for ($page=1;$page<=$number_of_pages;$page++) {
             <?php if (count($liste) > 0) : ?>
 
                 <label>Produit :</label>
-                <select name="produit">
+                <select name="produit_id">
                     <?php foreach ($liste as $row) : ?>
                         <option value="<?= $row["produits_id"] ?>"><?= $row["produits_nom"] ?></option>
                     <?php endforeach; ?>
@@ -144,20 +144,6 @@ for ($page=1;$page<=$number_of_pages;$page++) {
             <label>Quantité :</label>
             <input type="text" name="quantite" value="<?php echo isset($quantite) ? $quantite : "" ?>">
             <span><?php echo isset($erreurs['quantite']) ? $erreurs['quantite'] : "&nbsp;"  ?></span>
-
-            <!-- <table>    
-                <label>Quantité</label>
-                <select name="quantite">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
-                </select> 
-            </table> -->
-
-
-
 
 
             <input class="submit" type="submit" name="envoi" value="Enregistrer">

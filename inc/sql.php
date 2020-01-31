@@ -250,8 +250,7 @@ PC.quantite_produit as 'Quantite',
 P.produits_prix as 'Prix',
 C.commandes_adresse as 'Adresse',
 C.commandes_commentaire as 'Commentaire',
-C.commandes_etat as 'État',
-P.produits_id
+C.commandes_etat as 'État'
 
 FROM
     commandes as C
@@ -308,49 +307,63 @@ INNER JOIN
  * Valeurs de retour   : aucune
  */
 function enregistrerCommande($conn, $commande) {
-
-/*     mysqli_begin_transaction($conn); // Début de la transaction
- */
-
-
-
-
-    // Création de la commande
-    $req = "INSERT INTO commandes
-    (C.id as 'Numéro de commande', 
-    CL.clients_nom as 'Nom du client',
-    C.date as 'Date',
-    P.produits_nom as 'Produit',
-    PC.quantite_produit as 'Quantite',
-    P.produits_prix as 'Prix',
-    C.commandes_adresse as 'Adresse',
-    C.commandes_commentaire as 'Commentaire',
-    C.commandes_etat as 'État',
-    P.produits_id)
-    
-    FROM
-        commandes as C
-    INNER JOIN
-        commandes_produits as PC on PC.commande_id = C.id
-    INNER JOIN
-        produits as P on P.produits_id = PC.produit_id
-    INNER JOIN
-        clients as CL on CL.clients_id = C.fk_client_id
-    VALUES (?,?,?,?,?)";
+    $req = "SELECT * FROM `produits` 
+        where produits_id = ?";
     $stmt = mysqli_prepare($conn, $req);
-    mysqli_stmt_bind_param($stmt, "ssssss", $commande["id"], $commande["date"], $commande["commandes_adresse"], $commande["commandes_etat"], $commande["commandes_commentaire"], $commande["fk_client_id"]);
+    mysqli_stmt_bind_param($stmt, "s", $commande["produit_id"]);
     if (mysqli_stmt_execute($stmt)) {
-        return mysqli_stmt_affected_rows($stmt);
+        $result = mysqli_stmt_get_result($stmt);
+        $nbResult = mysqli_num_rows($result);
+        $liste = array();
+        if ($nbResult) {
+            mysqli_data_seek($result, 0);
+            while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
+                $liste[] = $row;
+            }
+            $produit_quantite = $liste[0]["produits_quantite"];
+        }
+        mysqli_free_result($result);
     } else {
         errSQL($conn);
         exit;
     }
 
+    if ($produit_quantite < $commande["quantite"]) {
+        echo "QUANTITE INSUFFISANTE";
+        return;
+    }
+
+    $req = "INSERT INTO commandes (commandes_adresse, commandes_commentaire, commandes_etat, date, fk_client_id)
+    VALUES (?,?,?,?,?)";
+    $stmt = mysqli_prepare($conn, $req);
+    mysqli_stmt_bind_param($stmt, "sssss", $commande["adresse"], $commande["commentaire"], $commande["etat"],  $commande["date"], $commande["client_id"]);
+    if (!mysqli_stmt_execute($stmt)) {
+        errSQL($conn);
+        exit;
+    }
+
+    $last_id = $conn->insert_id;
+    $req2 = "INSERT INTO commandes_produits (commande_id, produit_id, quantite_produit)
+    VALUES (?,?,?)";
+    $stmt2 = mysqli_prepare($conn, $req2);
+    mysqli_stmt_bind_param($stmt2, "sss", $last_id, $commande["produit_id"], $commande["quantite"]);
+    if (!mysqli_stmt_execute($stmt2)) {
+        errSQL($conn);
+        exit;
+    }
+
+    $req = "UPDATE produits SET produits_quantite = ?
+    WHERE produits_id = ?";
+    $nouvelle_quantite = $produit_quantite - $commande["quantite"];
+    $stmt = mysqli_prepare($conn, $req);
+    mysqli_stmt_bind_param($stmt, "is", $nouvelle_quantite, $commande["produit_id"]);
+    if (!mysqli_stmt_execute($stmt)) {
+        errSQL($conn);
+        exit;
+    }
 
 
-
-
-    
+    echo "<meta http-equiv='refresh' content='0'>";
 }
 
 
