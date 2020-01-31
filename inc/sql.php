@@ -284,19 +284,6 @@ INNER JOIN
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 /**
  * Fonction enregistrerCommande
  * Auteur : Vincent

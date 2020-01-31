@@ -101,22 +101,6 @@ $liste = listerClients($conn);
         <?php if (isset($_POST["envoiSupprimer"]))
         supprimerClient($conn, $_POST);?>
         
-    
-
-
-
-
-    <!-- <?php if (isset($_POST["envoi"])) : ?>
-        <section>
-            <p>Confirmez la commande de <?= $_POST['nbCommande'] ?> exemplaire(s) de <?= $_POST['nomProduit'] ?></p>
-            <form class="form-suppression" action="" method="post">
-                <input type="hidden" name="genre_id" value="<?= $id ?>">
-                <input type="submit" name="confirme" value="OUI">
-                <input type="submit" name="confirme" value="NON">
-            </form>
-        </section>
-    <?php endif; ?> -->
-
-</body>
+ </body>
 
 </html>    

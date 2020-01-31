@@ -8,35 +8,25 @@ $client = listerClients($conn);
 $liste = listerProduits($conn);
 
 
+/*   pagination non completé
 
 
-
-
-/* 
-
-
-// define how many results you want per page
 $results_per_page = 10;
 
-// find out the number of results stored in database
 $sql='SELECT * FROM commandes';
 $result = mysqli_query($conn, $sql);
 $number_of_results = mysqli_num_rows($result);
 
-// determine number of total pages available
 $number_of_pages = ceil($number_of_results/$results_per_page);
 
-// determine which page number visitor is currently on
 if (!isset($_GET['page'])) {
   $page = 1;
 } else {
   $page = $_GET['page'];
 }
 
-// determine the sql LIMIT starting number for the results on the displaying page
 $this_page_first_result = ($page-1)*$results_per_page;
 
-// retrieve selected results from database and display them on page
 $sql='SELECT * FROM commandes LIMIT ' . $this_page_first_result . ',' .  $results_per_page;
 $result = mysqli_query($conn, $sql);
 
@@ -44,18 +34,11 @@ while($row = mysqli_fetch_array($result)) {
   echo $row['id'] . ' ' . $row['fk_client_id']. '<br>';
 }
 
-// display the links to the pages
 for ($page=1;$page<=$number_of_pages;$page++) {
   echo '<a href="commandes.php?page=' . $page . '">' . $page . '</a> ';
 }
 
  */
-
-
-
-
-
-
 
 ?>
 
@@ -75,10 +58,6 @@ for ($page=1;$page<=$number_of_pages;$page++) {
 <h1><a href="commandes.php">Luna Inc.</a></h1> 
     <h3>Catalogue des commandes</h3>
 </header>
-
-
-
-
 
 
 <body>
@@ -105,8 +84,6 @@ for ($page=1;$page<=$number_of_pages;$page++) {
             <span><?php echo isset($erreurs['commentaire']) ? $erreurs['commentaire'] : "&nbsp;"  ?></span>
 
 
-
-
             <table>
                 <?php if (count($client) > 0) : ?>
 
@@ -120,9 +97,6 @@ for ($page=1;$page<=$number_of_pages;$page++) {
                 <?php else : ?>
                     <p>Aucun client trouvé.</p>
                 <?php endif; ?>
-
-
-
 
 
             <table>
@@ -201,25 +175,14 @@ for ($page=1;$page<=$number_of_pages;$page++) {
     
   
     <?php if (isset($_POST["envoiModifier"]))
-        modifierProduit($conn, $_POST);?>
+        modifierCommande($conn, $_POST);?>
 
         <?php if (isset($_POST["envoiSupprimer"]))
-        supprimerProduit($conn, $_POST);?>
+        supprimerCommande($conn, $_POST);?>
         
 
     <?php if (isset($_POST["envoi"])) : ?>
-
-
-        <!-- <section>
-            <p>Confirmez la commande de <?= $_POST['nbCommande'] ?> exemplaire(s) de <?= $_POST['nomProduit'] ?></p>
-            <form class="form-suppression" action="" method="post">
-                <input type="hidden" name="genre_id" value="<?= $id ?>">
-                <input type="submit" name="confirme" value="OUI">
-                <input type="submit" name="confirme" value="NON">
-            </form>
-        </section> -->
-
-        
+      
     <?php endif; ?>
 
 </body>

@@ -3,8 +3,8 @@ require_once("../sessionGestion.php");
 require_once("../inc/connectDB.php");
 require_once("../inc/sql.php");
 
-// Catalogue client
-$recherche = isset($_POST['recherche']) ? trim($_POST['recherche']) : "";
+/* // Catalogue client
+$recherche = isset($_POST['recherche']) ? trim($_POST['recherche']) : ""; */
 
 $liste = listerProduits($conn, $recherche);
 $categorie = listerCategories($conn);
@@ -26,8 +26,6 @@ $categorie = listerCategories($conn);
     <h1><a href="commandes.php">Luna Inc.</a></h1> 
     <h3>Catalogue des produits</h3>
 </header>
-
-
 
 
 
@@ -134,29 +132,6 @@ $categorie = listerCategories($conn);
         supprimerProduit($conn, $_POST);?>
         
 
-
-
-    
-
-
-
-
-
-
-
-
-    <!-- <?php if (isset($_POST["envoi"])) : ?>
-        <section>
-            <p>Confirmez la commande de <?= $_POST['nbCommande'] ?> exemplaire(s) de <?= $_POST['nomProduit'] ?></p>
-            <form class="form-suppression" action="" method="post">
-                <input type="hidden" name="genre_id" value="<?= $id ?>">
-                <input type="submit" name="confirme" value="OUI">
-                <input type="submit" name="confirme" value="NON">
-            </form>
-        </section>
-
-        
-    <?php endif; ?> -->
 
 </body>
     <p><?php echo isset($retSQL) ? $retSQL : "&nbsp;" ?></p>
