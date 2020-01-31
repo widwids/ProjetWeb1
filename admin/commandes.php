@@ -95,7 +95,7 @@ for ($page=1;$page<=$number_of_pages;$page++) {
             <input type="text" name="adresse" value="<?php echo isset($adresse) ? $adresse : "" ?>" required>
             <span><?php echo isset($erreurs['adresse']) ? $erreurs['adresse'] : "&nbsp;"  ?></span>
 
-            <label>Etat :</label>
+            <label>État :</label>
             <input type="text" name="etat" value="<?php echo isset($etat) ? $etat : "" ?>" required>
             <span><?php echo isset($erreurs['etat']) ? $erreurs['etat'] : "&nbsp;"  ?></span>
 

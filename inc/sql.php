@@ -587,19 +587,19 @@ function controlerUtilisateur($conn, $utilisateurs_nom, $utilisateurs_password)
 }
 
 /**
- * Fonction lireClientID
+ * Fonction lirePrivilegeUtilisateur
  * Auteur   : Vincent
  * Date     : 30-01-2020
- * But      : Récupérer le ID d'un client à partir de son identifiant 
+ * But      : Récupérer le privilege d'un utilisateur à partir de son identifiant 
  * Input    : $conn = contexte de connexion
  *            $identifiant = adresse email  du client
  * Output   : $row  = ligne correspondant à l'identifiant du client
  *                    tableau vide si non trouvée     
  */
-function lireNomUtilisateur($conn, $utilisateurs_nom)
+function lirePrivilegeUtilisateur($conn, $utilisateurs_nom)
 {
 
-    $req = "SELECT * FROM utilisateurs WHERE utilisateurs_nom ='$utilisateurs_nom'";
+    $req = "SELECT * FROM utilisateurs WHERE utilisateurs_privilege ='$utilisateurs_privilege'";
 
     if ($result = mysqli_query($conn, $req)) {
         $nbResult = mysqli_num_rows($result);

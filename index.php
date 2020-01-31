@@ -9,9 +9,12 @@ if (isset($_POST['envoi'])) {
 
 
     if (controlerUtilisateur($conn, $utilisateurs_nom, $utilisateurs_password) === 1) {
-        session_start();
-        $_SESSION['utilisateurs_nom'] = $utilisateurs_nom;
-        $_SESSION['utilisateurs_privilege'] = lireNomUtilisateur($conn, $utilisateurs_nom);
+
+        echo $utilisateurs_nom;
+
+        /* session_start();
+        $_SESSION['utilisateurs_privilege'] = $utilisateurs_privilege;
+        $_SESSION['utilisateurs_privilege'] = lirePrivilegeUtilisateur($conn, $utilisateurs_privilege);
         // Si l'utilisateur est l'admin, redirige vers le dashboard
         if ($_SESSION['utilisateurs_privilege'] == "admin")
 
@@ -19,8 +22,11 @@ if (isset($_POST['envoi'])) {
             header('Location: admin/commandes.php');
         // Sinon, redirige vers le catalogue
         else
-            header('Location: index.php');
-    } else {
+            header('Location: index.php'); */
+    
+    
+    
+        } else {
         $erreur = "Identifiant ou mot de passe incorrect.";
     }
 }
