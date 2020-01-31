@@ -1,4 +1,5 @@
 <?php
+require_once("../session.php");
 require_once("../inc/connectDB.php");
 require_once("../inc/sql.php");
 
