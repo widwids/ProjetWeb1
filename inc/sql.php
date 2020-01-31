@@ -574,7 +574,7 @@ function supprimerUtilisateur($conn, $utilisateur)
 function controlerUtilisateur($conn, $utilisateurs_nom, $utilisateurs_password)
 {
     $req = "SELECT * FROM utilisateurs
-            WHERE utilisateurs_nom=? AND utilisateurs_password = SHA2(?, 256)";
+            WHERE utilisateurs_nom=? AND utilisateurs_password =?";
     $stmt = mysqli_prepare($conn, $req);
     mysqli_stmt_bind_param($stmt, "ss", $utilisateurs_nom, $utilisateurs_password);
     if (mysqli_stmt_execute($stmt)) {
@@ -592,14 +592,13 @@ function controlerUtilisateur($conn, $utilisateurs_nom, $utilisateurs_password)
  * Date     : 30-01-2020
  * But      : Récupérer le privilege d'un utilisateur à partir de son identifiant 
  * Input    : $conn = contexte de connexion
- *            $identifiant = adresse email  du client
- * Output   : $row  = ligne correspondant à l'identifiant du client
- *                    tableau vide si non trouvée     
+ *            $utilisateurs_nom = adresse email  du client
+ * Output   : $row  = ligne correspondant au privilege de l'utilisateur  
  */
 function lirePrivilegeUtilisateur($conn, $utilisateurs_nom)
 {
 
-    $req = "SELECT * FROM utilisateurs WHERE utilisateurs_privilege ='$utilisateurs_privilege'";
+    $req = "SELECT * FROM utilisateurs WHERE utilisateurs_nom ='$utilisateurs_nom'";
 
     if ($result = mysqli_query($conn, $req)) {
         $nbResult = mysqli_num_rows($result);
@@ -609,14 +608,11 @@ function lirePrivilegeUtilisateur($conn, $utilisateurs_nom)
             $row = mysqli_fetch_array($result);
         }
         mysqli_free_result($result);
-        $id = $row['utilisateurs_nom'];
+        $id = $row['utilisateurs_privilege'];
         return $id;
     } else {
         errSQL($conn);
         exit;
     }
 }
-
-
-
 ?>
