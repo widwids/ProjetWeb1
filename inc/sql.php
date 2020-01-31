@@ -155,6 +155,10 @@ function listerClients($conn)
  */
 function ajouterClient($conn, $clients)
 {
+    if (!preg_match("/^(514|438)-\d{3}-\d{4}$/" ,$clients["telephone"])) {
+        echo "MAUVAIS FORMAT NUMERO DE TELEPHONE";
+        return;
+    }
     $req = "INSERT INTO clients (clients_adresse, clients_telephone, clients_nom)
     VALUES (?,?,?)";
     $stmt = mysqli_prepare($conn, $req);
@@ -475,6 +479,10 @@ function supprimerCategorie($conn, $categorie)
  */
 function modifierClient($conn, $client)
 {
+    if (!preg_match("/^(514|438)-\d{3}-\d{4}$/" ,$client["clients_telephone"])) {
+        echo "MAUVAIS FORMAT NUMERO DE TELEPHONE";
+        return;
+    }
     $req = "UPDATE clients SET clients_nom = ?, clients_telephone = ?, clients_adresse = ? 
     WHERE clients_id = ?";
     $stmt = mysqli_prepare($conn, $req);
