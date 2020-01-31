@@ -12,7 +12,7 @@ if (isset($_SESSION['utilisateurs_privilege'])) {
 
 <nav>        
     <p class="menu">
-        <a href="deconnexion.php" class="deconnexion"><br>Déconnexion</a><br>
+        <a href="../index.php?deco=true" class="deconnexion"><br>Déconnexion</a><br>
         <a href="commandes.php" class="button"><br>Commandes</a><br>
         <a href="clients.php" class="button"><br>Clients</a><br>
 
